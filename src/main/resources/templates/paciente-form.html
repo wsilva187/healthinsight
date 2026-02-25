@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Novo Paciente</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+          rel="stylesheet">
+</head>
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
+  <div class="container">
+    <a class="navbar-brand" href="/">Sistema de Consultas</a>
+
+    <div class="navbar-nav">
+      <a class="nav-link" href="/consultas/lista">Consultas</a>
+      <a class="nav-link" href="/consultas/nova">Agendar Consulta</a>
+      <a class="nav-link" href="/pacientes/lista">Pacientes Cadastrados</a>
+      <a class="nav-link" href="/pacientes/novo">Cadastrar Paciente</a>
+    </div>
+  </div>
+</nav>
+
+<body class="bg-light">
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+
+            <div class="card shadow">
+                <div class="card-header text-center">
+                    <h4>Novo Paciente</h4>
+                </div>
+
+                <div class="card-body">
+
+<form th:action="@{/pacientes/salvar}"
+      th:object="${paciente}"
+      method="post">
+
+    <div th:if="${#fields.hasErrors('*')}" class="alert alert-danger">
+        <ul class="mb-0">
+            <li th:each="err : ${#fields.errors('*')}"
+                th:text="${err}"></li>
+        </ul>
+    </div>
+
+    <input type="hidden" th:field="*{id}" th:if="*{id != null}">
+
+
+    <div class="mb-3">
+        <label class="form-label">Nome</label>
+        <input type="text"
+               th:field="*{nome}"
+               class="form-control"
+               placeholder="Digite o nome">
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">CPF</label>
+        <input type="text"
+               th:field="*{cpf}"
+               class="form-control"
+               placeholder="000.000.000-00">
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Cartão SUS</label>
+        <input type="text"
+               th:field="*{cartaoSus}"
+               class="form-control">
+    </div>
+
+    <div class="d-flex justify-content-between">
+        <a th:href="@{/pacientes/lista}" class="btn btn-secondary">
+            Voltar
+        </a>
+
+        <button type="submit" class="btn btn-primary">
+            Salvar
+        </button>
+    </div>
+
+</form>
+
+
+</div>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>
+
